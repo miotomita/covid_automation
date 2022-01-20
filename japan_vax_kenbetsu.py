@@ -51,7 +51,7 @@ file_url = 'https://www.kantei.go.jp' + file_url if 'https://www.kantei.go.jp' n
 # In[31]:
 
 
-file_name= f".legacy_data/raw_files/{datetime.utcnow().strftime('%Y%m%d')}_kenbetsu_vaccination_data2.xlsx"
+file_name= f"./legacy_data/raw_files/{datetime.utcnow().strftime('%Y%m%d')}_kenbetsu_vaccination_data2.xlsx"
 
 
 # In[30]:
