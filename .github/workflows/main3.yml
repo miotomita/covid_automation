@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '20 15 * * *'
+    - cron: '37 15 * * *'
 
 
 jobs:
@@ -24,6 +24,7 @@ jobs:
           pip install requests
           pip install beautifulsoup4
           pip install urllib3
+          pip install lxml
       - name: Run japan_vax_kenbetsu.py
         run: |
           python japan_vax_kenbetsu.py
