@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '32 14 * * *'
+    - cron: '40 14 * * *'
 
 jobs:
   build:
@@ -21,8 +21,9 @@ jobs:
           pip install pandas
           pip install datetime
           pip install requests
-          pip install numpy
           pip install beautifulsoup4
+          pip install urllib3
+          pip install re
       - name: Run japan_vax_kenbetsu.py
         run: |
           python action.py
