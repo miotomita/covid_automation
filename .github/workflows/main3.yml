@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '5 15 * * *'
+    - cron: '20 15 * * *'
 
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           python japan_vax_kenbetsu.py
       - name: Commit and Push
         run: |
-          git config user.name "miotoita"
+          git config user.name "miotomita"
           git config user.email "mio.tomita@nex.nikkei.com"
           git add .
           git commit -m "daily update"
