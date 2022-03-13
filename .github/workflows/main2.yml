@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '00 04 * * *'
+    - cron: '50 03 * * *'
 
 jobs:
   build:
