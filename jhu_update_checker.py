@@ -13,7 +13,7 @@ def check_update():
   prev_date = (datetime.utcnow()-timedelta(hours=15)).date()
   #更新フラグ、通知
   flag = True if upd_date >= prev_date else False
-  msg = (pd.to_datetime(upd_date).strftime('%m/%d')+'のデータが更新されました') if flag else "未更新です"
+  msg = (pd.to_datetime(upd_date).strftime('%m/%d')+'の確報値が更新されました') if flag else "確報値は未更新です"
   return flag, msg
 
 #初回チェック
@@ -23,7 +23,7 @@ update, text = check_update()
 while update==False:
   update, text = check_update()
   if ((datetime.utcnow() + timedelta(hours=9)).hour >15):
-    text = '15時までに更新が確認できませんでした'
+    text = '15時までに確報値の更新が確認できませんでした。\n'
     print(datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y/%m/%d日 %H:%M'), ':',text)
     break
   else:
