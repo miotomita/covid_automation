@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '30 08 * * *'
+    - cron: '10 09 * * *'
 
 jobs:
   build:
@@ -24,26 +24,23 @@ jobs:
       - name: Run jhu_update_checker.py
         run: |
           python jhu_update_checker.py
-          
+      
+      - name: Commit and Push
+        run: |
+          git config user.name "miotomita"
+          git config user.email "mio.tomita@nex.nikkei.com"
+          git add .
+          git commit -m "daily update"
+          git pull --rebase
+          git push origin main
+      
       # Start a Slack workflow using a webhook trigger
       # https://github.com/slackapi/slack-github-action
       - name: Send GitHub Action trigger data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.16.0
         with:
-          payload: |
-            {
-              "text": msg
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": msg
-                            }
-                  }
-                  ]
-                }
+          payload-file-path: "./sourcedata_update_log.json"
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
