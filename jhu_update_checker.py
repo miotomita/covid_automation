@@ -30,11 +30,4 @@ while update==False:
     print(datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y/%m/%d/ %H:%M'), ':',text)
     time.sleep(60*5)
 
-#slack　#coronavirus_dataに投稿
-WEB_HOOK_URL = 'https://hooks.slack.com/services/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'
-
-alert = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n'\
-+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')\
-+ "\n\n" + text
-
-rq.post(WEB_HOOK_URL, data=json.dumps({"text" : alert,}))
+text = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n' + datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M') + "\n\n" + text
