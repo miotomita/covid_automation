@@ -16,6 +16,10 @@ def check_update():
   msg = ('データが更新されました('+pd.to_datetime(upd_date).strftime('%Y/%m/%d')) if flag else "未更新です"
   return flag, msg
 
+#初回チェック
+update, text = check_update()
+
+#未更新なら15時までトライ
 while update==False:
   update, text = check_update()
   if ((datetime.utcnow() + timedelta(hours=9)).hour >15):
