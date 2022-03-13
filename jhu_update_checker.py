@@ -13,7 +13,7 @@ def check_update():
   prev_date = (datetime.utcnow()-timedelta(hours=15)).date()
   #更新フラグ、通知
   flag = True if upd_date >= prev_date else False
-  msg = ('データが更新されました('+pd.to_datetime(upd_date).strftime('%Y/%m/%d')) if flag else "未更新です"
+  msg = ('データが更新されました('+pd.to_datetime(upd_date).strftime('%Y/%m/%d')+')') if flag else "未更新です"
   return flag, msg
 
 #初回チェック
