@@ -2,7 +2,7 @@ name: actions
 
 on:
   schedule:
-    - cron: '30 09 * * *'
+    - cron: '20 10 * * *'
 
 jobs:
   build:
@@ -40,7 +40,28 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.16.0
         with:
-          payload-file-path: "./sourcedata_update_log.json"
+          payload: |
+            {
+              "text": “JHU (Johns Hopkins Univ) の世界の感染者数が更新されました。”,
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": “JHU (Johns Hopkins Univ) の世界の感染者数が更新されました。”
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": " <https://coronavirus.jhu.edu/>"
+                    }
+                  ]
+                }
+              ]
+            }
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
