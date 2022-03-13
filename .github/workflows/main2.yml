@@ -23,4 +23,4 @@ jobs:
           pip install requests
       - name: Run jhu_update_checker.py
         run: |
-          python japan_vax_kenbetsu.py
+          python jhu_update_checker.py
