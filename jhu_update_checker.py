@@ -31,7 +31,7 @@ while update==False:
     time.sleep(60*5)
 
 #slack　#coronavirus_dataに投稿
-WEB_HOOK_URL = 'https://hooks.slack.com/services/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'
+WEB_HOOK_URL = 'https://hooks.slack.com/services/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'
 
 alert = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n'\
 + datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')\
