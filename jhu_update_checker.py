@@ -34,5 +34,5 @@ text = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n' +
 
 str = {"text":text}
 
-with open('sourcedata_update_log.json', 'w') as f:
+with open('./sourcedata_update_log.json', 'w') as f:
     json.dump(str, f, ensure_ascii=False)
