@@ -3,7 +3,7 @@ name: actions
 on:
   schedule:
   #日本時間午後1時~3時にまわす
-    - cron: '25 13 * * *'
+    - cron: '35 10 * * *'
 
 jobs:
   build:
@@ -42,7 +42,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
-          payload-file-path: "./payload-slack-content.json"
+          payload-file-path: "./sourcedata_update_log.json"
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
