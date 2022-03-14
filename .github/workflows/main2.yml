@@ -3,7 +3,7 @@ name: actions
 on:
   schedule:
   #日本時間午後1時~3時にまわす
-    - cron: '00 04 * * *'
+    - cron: '30 04 * * *'
 
 jobs:
   build:
