@@ -32,5 +32,7 @@ while update==False:
 
 text = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n' + datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M') + "\n\n" + text
 
-with open('./sourcedata_update_log.json', 'w') as f:
-    json.dumps( { "text": text, })
+str = {"text":text}
+
+with open('test.json', 'w') as f:
+    json.dump(str, f, ensure_ascii=False)
