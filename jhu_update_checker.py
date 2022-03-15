@@ -20,15 +20,15 @@ def check_update():
 update, text = check_update()
 
 #未更新なら15時までトライ
-while update==False:
+while not update:
   update, text = check_update()
-  if ((datetime.utcnow() + timedelta(hours=9)).hour >15):
-    text = '15時までに確報値の更新が確認できませんでした。\n'
-    print(datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y/%m/%d日 %H:%M'), ':',text)
-    break
-  else:
-    print(datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y/%m/%d/ %H:%M'), ':',text)
-    time.sleep(60*5)
+  if not update:
+    if ((datetime.utcnow() + timedelta(hours=9)).hour >15):
+      text = '15時までに確報値の更新が確認できませんでした。\n'
+      break
+    else:
+      time.sleep(60*3)
+      continue
 
 text = '▼Johns Hopkins University (JHU)の世界の感染者・死者数:\n' + datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M') + "\n\n" + text
 
