@@ -42,7 +42,7 @@ while not update:
         failure = failure + [url_list[url]]
         break
     if not update:
-        time.sleep(60*5)
+        time.sleep(60*1)
         continue
 
 #url2: 新規死者のcsvをチェック
@@ -56,7 +56,7 @@ while not update:
         failure = failure + [url_list[url]]
         break
     if not update:
-        time.sleep(60*5)
+        time.sleep(60*1)
         continue
         
 #url3: 累計感染のcsvをチェック
@@ -109,7 +109,7 @@ while not update:
         if ((datetime.utcnow() + timedelta(hours=9)).hour >=limit_h):
             failure2 = True
             break
-        time.sleep(60*5)
+        time.sleep(60*1)
         continue
 
 text2 = "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
