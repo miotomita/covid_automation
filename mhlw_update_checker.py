@@ -92,7 +92,7 @@ while not update:
 success = set(url_list.values()) - set(failure)
 
 #slack投稿用
-text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')+ "\n\n"+ "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n" + (('更新されました◎：'+ (','.join(success))) if (len(success)>0) else '')+ "\n" + ((f'{str(limit_h)}時まで未更新です：'+ (','.join(failure))) if (len(failure)>0) else '')
+text1 = "\n\n"+ "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n" + (('更新されました◎：'+ (','.join(success))) if (len(success)>0) else '')+ "\n" + ((f'{str(limit_h)}時まで未更新です：'+ (','.join(failure))) if (len(failure)>0) else '')
 
 #part2
 #国内の発生状況のcsv
@@ -112,7 +112,11 @@ while not update:
         time.sleep(60*5)
         continue
 
-text = text+ "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
+text2 = "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
+
+text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')
+text = (text + '\n\n！！！！！！！！！未更新です！！！！！！！！！！！\n\n\ウェブサイト掲載の厚生労働省に問い合わせてくださいn\n\n' + ) if (len(failure)+len(failure2))>0 else text
+text = text + text1 + text2
 
 print(text)
 
