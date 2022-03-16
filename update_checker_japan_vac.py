@@ -49,9 +49,6 @@ text = '▼日本ワクチンのバックデータ:\n'\
 + "\n\n"+ "★「首相官邸のワクチン情報」\nhttps://www.kantei.go.jp/jp/headline/kansensho/vaccine.html"
 
 str = {"text":text}
-print(text)
 
-#アラートの投稿
-#slack　#coronavirus_data
-WEB_HOOK_URL = 'https://hooks.slack.com/services/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'
-rq.post(WEB_HOOK_URL, data=json.dumps({"text" : text,}))
+with open('./mhlw_sourcedata_update_log.json', 'w') as f:
+    json.dump(str, f, ensure_ascii=False)
