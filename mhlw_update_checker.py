@@ -15,8 +15,8 @@ url_list = {url1:'新規感染者数',url2:'新規死者数',url3:'累計感染�
 #ほしい日付
 target = (datetime.utcnow()-timedelta(hours=15)).date()
 
-#停止時刻（１４時）
-limit_h = 14
+#停止時刻
+limit_h = 15
 
 def check_update(url):
     #ほしい日付（日本時間でみて、更新作業当日の１日前まで確報が入ればOK）   
@@ -70,7 +70,7 @@ while not update:
         failure = failure + [url_list[url]]
         break
     if not update:
-        time.sleep(60*5)
+        time.sleep(60*1)
         continue
 
 
@@ -85,14 +85,14 @@ while not update:
         failure = failure + [url_list[url]]
         break
     if not update:
-        time.sleep(60*5)
+        time.sleep(60*1)
         continue
 
 #更新が確認できたものリスト
 success = set(url_list.values()) - set(failure)
 
 #slack投稿用
-text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')+ "\n\n"+ "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n" + (('更新されました◎：'+ (','.join(success))) if (len(success)>0) else '')+ "\n" + (('14時まで未更新です：'+ (','.join(failure))) if (len(failure)>0) else '')
+text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')+ "\n\n"+ "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n" + (('更新されました◎：'+ (','.join(success))) if (len(success)>0) else '')+ "\n" + ((f'{str(limit_h)}時まで未更新です：'+ (','.join(failure))) if (len(failure)>0) else '')
 
 #part2
 #国内の発生状況のcsv
@@ -112,7 +112,7 @@ while not update:
         time.sleep(60*5)
         continue
 
-text = text+ "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else '14時まで未更新です。')
+text = text+ "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
 
 print(text)
 
