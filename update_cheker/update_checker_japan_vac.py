@@ -50,5 +50,5 @@ text = '▼日本ワクチンのバックデータ:\n'\
 
 str = {"text":text}
 
-with open('./mhlw_sourcedata_update_log.json', 'w') as f:
+with open('./japan_vac_sourcedata_update_log.json', 'w') as f:
     json.dump(str, f, ensure_ascii=False)
