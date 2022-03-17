@@ -14,7 +14,7 @@ janera = Japanera()
 target = (datetime.utcnow()+timedelta(hours=9)).date()
 
 #停止時刻
-limit_h = 20
+limit_h = 19
 
 
 
