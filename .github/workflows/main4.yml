@@ -25,6 +25,7 @@ jobs:
           pip install bs4
           pip install mojimoji
           pip install japanera
+          pip install lxml
 
       - name: Run update_checker_japan_vac.py
         run: |
