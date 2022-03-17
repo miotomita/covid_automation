@@ -46,7 +46,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
-          payload-file-path: './update_checker/japan_vac_sourcedata_update_log.json'
+          payload-file-path: './japan_vac_sourcedata_update_log.json'
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
