@@ -16,10 +16,6 @@ target = (datetime.utcnow()+timedelta(hours=9)).date()
 #停止時刻
 limit_h = 19
 
-
-
-target = date(2022,3,16)
-
 def check_update(url):
     r = rq.get(url)
     soup = bs(r.content,'lxml')
