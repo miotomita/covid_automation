@@ -12,8 +12,8 @@ url4 = 'https://covid19.mhlw.go.jp/public/opendata/deaths_cumulative_daily.csv'
 
 url_list = {url1:'新規感染者数',url2:'新規死者数',url3:'累計感染者数',url4:'累計死者数'}
 
-#ほしい日付（日本時間でみて、更新作業当日の１日前まで確報が入ればOK） 
-target = (datetime.utcnow()-timedelta(hours=15)).date()
+#ほしい日付（日本時間でみて、更新作業当日のデータが入ればOK） 
+target = (datetime.utcnow()+timedelta(hours=9)).date()
 
 #停止時刻
 limit_h = 18
@@ -91,7 +91,19 @@ while not update:
 success = set(url_list.values()) - set(failure)
 
 #slack投稿用
-text1 = "\n\n"+ "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n" + (('更新されました◎：'+ (','.join(success))) if (len(success)>0) else '')+ "\n" + ((f'{str(limit_h)}時まで未更新です：'+ (','.join(failure))) if (len(failure)>0) else '')
+text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M') +  "\n\n" + "★「データからわかる－新型コロナウイルス感染症情報－」\nhttps://covid19.mhlw.go.jp/?lang=ja"+ "\n"
+
+if len(failure)==0:
+    text = text + "更新されました ◎：" + (','.join(success))                                 
+else:
+    text = text + f"{str(limit_h)}時まで未更新!!!!：" + "\n" + (','.join(failure))
+print(text)
+
+str = {"text":text}
+
+#slack投稿用のjson作成
+with open('./mhlw_sourcedata_update_log.json', 'w') as f:
+    json.dump(str, f, ensure_ascii=False)
 
 #part2
 #国内の発生状況のcsv
@@ -112,13 +124,8 @@ text1 = "\n\n"+ "★「データからわかる－新型コロナウイルス感
 #        continue
 
 #text2 = "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
-
-text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')
 #text = (text + '\n\n！！！未更新です！！！\n\n厚労省に問い合わせてください（代表から「データがわかる〜」の担当を呼び出し）\n\n') if (len(failure)+failure2)>0 else text
-text = (text + '\n\n！！！未更新です！！！\n\n厚労省に問い合わせてください（代表から「データがわかる〜」の担当を呼び出し）\n\n' + text1) if (len(failure)>0) else (text + text1)
-print(text)
+#text = (text +  + text1) if (len(failure)>0) else (text + text1)
 
-str = {"text":text}
 
-with open('./mhlw_sourcedata_update_log.json', 'w') as f:
-    json.dump(str, f, ensure_ascii=False)
+
