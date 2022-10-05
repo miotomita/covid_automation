@@ -12,14 +12,13 @@ url4 = 'https://covid19.mhlw.go.jp/public/opendata/deaths_cumulative_daily.csv'
 
 url_list = {url1:'新規感染者数',url2:'新規死者数',url3:'累計感染者数',url4:'累計死者数'}
 
-#ほしい日付
+#ほしい日付（日本時間でみて、更新作業当日の１日前まで確報が入ればOK） 
 target = (datetime.utcnow()-timedelta(hours=15)).date()
 
 #停止時刻
-limit_h = 15
+limit_h = 18
 
-def check_update(url):
-    #ほしい日付（日本時間でみて、更新作業当日の１日前まで確報が入ればOK）   
+def check_update(url):      
     df = pd.read_csv(url)
     #csvデータの最新日
     latest = pd.to_datetime(df.Date).max().date()
@@ -27,7 +26,7 @@ def check_update(url):
     flag = True if latest >= target else False
     return flag
 
-#14時までに更新が確認できなかったものを放り込む
+#停止時刻までに更新が確認できなかったものを放り込む
 failure = []
 
 
@@ -97,26 +96,26 @@ text1 = "\n\n"+ "★「データからわかる－新型コロナウイルス感
 #part2
 #国内の発生状況のcsv
 #https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html
-update = False
-failure2 = False
-url = 'https://covid19.mhlw.go.jp/public/partsdata/parts_current_situation.csv'
+#update = False
+#failure2 = False
+#url = 'https://covid19.mhlw.go.jp/public/partsdata/parts_current_situation.csv'
 
-while not update:
-    df5 = pd.read_csv(url)
-    latest5 = (pd.to_datetime(df5.iloc[:,0]).max() - timedelta(days=1)).date()
-    update = True if latest5 >= target else False
-    if not update:
-        if ((datetime.utcnow() + timedelta(hours=9)).hour >=limit_h):
-            failure2 = True
-            break
-        time.sleep(60*1)
-        continue
+#while not update:
+#    df5 = pd.read_csv(url)
+#    latest5 = (pd.to_datetime(df5.iloc[:,0]).max() - timedelta(days=1)).date()
+#    update = True if latest5 >= target else False
+#    if not update:
+#        if ((datetime.utcnow() + timedelta(hours=9)).hour >=limit_h):
+#            failure2 = True
+#            break
+#        time.sleep(60*1)
+#        continue
 
-text2 = "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
+#text2 = "\n\n"+ "★「国内の発生状況など」（空港海港の直近値取得用）\nhttps://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html"+ "\n" + ('更新されました◎' if not failure2 else f'{str(limit_h)}時まで未更新です。')
 
 text = '▼厚労省の感染者・死者データ:\n'+ datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime('%Y年%m月%d日 %H:%M')
-text = (text + '\n\n！！！未更新です！！！\n\n厚労省に問い合わせてください（代表から「データがわかる〜」の担当を呼び出し）\n\n') if (len(failure)+failure2)>0 else text
-text = text + text1 + text2
+#text = (text + '\n\n！！！未更新です！！！\n\n厚労省に問い合わせてください（代表から「データがわかる〜」の担当を呼び出し）\n\n') if (len(failure)+failure2)>0 else text
+text = (text + '\n\n！！！未更新です！！！\n\n厚労省に問い合わせてください（代表から「データがわかる〜」の担当を呼び出し）\n\n' + text1) if (len(failure)>0) else (text + text1)
 print(text)
 
 str = {"text":text}
