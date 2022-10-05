@@ -2,8 +2,8 @@ name: actions
 
 on:
   schedule:
-  #日本時間11時半にまわす（UTC2:30）~(pythonコードが3時に終了）
-    - cron: '30 02 * * *'
+  #日本時間15時にまわす（UTC6:00）~(pythonコードが18時に終了）
+    - cron: '00 06 * * *'
 
 jobs:
   build:
