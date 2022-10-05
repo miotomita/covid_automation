@@ -3,8 +3,8 @@ name: actions
 on:
   workflow_dispatch:
   schedule:
-  #日本時間14時にまわす（UTC5:00）~(pythonコードが18時に終了）
-    - cron: '00 05 * * *'
+  #日本時間16時にまわす（UTC7:00）~(pythonコードが18時に終了）
+    - cron: '00 07 * * *'
 
 jobs:
   build:
