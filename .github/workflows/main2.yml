@@ -1,9 +1,9 @@
 name: actions 
 
 on:
-  schedule:
+  #schedule:
   #日本時間午後1時にまわす（UTC4:00）
-    - cron: '00 04 * * *'
+  #  - cron: '00 04 * * *'
 
 jobs:
   build:
