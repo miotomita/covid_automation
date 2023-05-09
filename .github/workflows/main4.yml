@@ -1,9 +1,9 @@
 name: actions 
 
 on:
-  schedule:
+  #schedule:
   #設定時刻＝日本時間1時半（UTC4:30）, 月〜金にまわす
-    - cron: '30 04 * * 1-5'
+  #  - cron: '30 04 * * 1-5'
 
 jobs:
   build:
